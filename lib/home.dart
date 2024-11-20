@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
   }
 
   bool addCourse() {
-    if (_credits == -1 || _grade == -1 || _grade > 100) {
+    if (_credits < 0 || _grade < 0 || _grade > 100 || _initialGPA < 0 || _initialGPA > 4 ) {
       return false;
     } else {
       int courseId = _courses.length + 1; // Unique course ID
@@ -112,15 +112,17 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20.0),
               Text(_text, style: const TextStyle(fontSize: 18.0)),
 
-              Expanded(
-                child: ListView.builder(
+
+
+              Expanded(                                     // <---- I used this expanded container to include the viewlist in it so i can make a scroll list
+                child: ListView.builder(                    // <---- I searched about this and the card to use it because i need to display the courses for the user in a list
                   itemCount: _courses.length,
                   itemBuilder: (context, index) {
                     int courseId = _courses.keys.elementAt(index);
                     var course = _courses[courseId]!;
                     int credits = course['credits']!;
                     int grade = course['grade']!;
-                    return Card(
+                    return Card(                         // <---- Creating a card in the viewlist for each course with a delete button
                       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                       child: ListTile(
                         title: Text('Course $courseId'),
@@ -150,8 +152,8 @@ class _HomeState extends State<Home> {
 
 
 class MyTextField extends StatelessWidget {
-  Function(String) f; // hold a variable function
-  String hint; // holds the hintText of the TextField
+  Function(String) f;
+  String hint;
   MyTextField({required this.hint, required this.f, super.key,});
   @override
   Widget build(BuildContext context) {
@@ -172,20 +174,18 @@ double calculateGPA(double initialGpa, int initialCredits, Map<int, Map<String, 
   double totalQualityPoints = initialGpa * initialCredits;
   int totalCredits = initialCredits;
 
-  // Iterate over each course to calculate quality points
   courses.forEach((id, course) {
     int credits = course['credits']!;
     int grade = course['grade']!;
 
     double qualityPoints;
 
-    // Check for grade below 60 (0 QPTs), between 60 and 90 (standard calculation), or 90 and above (4 QPTs)
     if (grade < 60) {
-      qualityPoints = 0.0; // Grade below 60 results in 0 quality points
+      qualityPoints = 0.0;
     } else if (grade >= 90) {
-      qualityPoints = 4.0; // Grade 90 or above caps at 4 quality points
+      qualityPoints = 4.0;
     } else {
-      qualityPoints = 1 + (grade - 60) * 0.1; // Standard calculation for grades between 60 and 90
+      qualityPoints = 1 + (grade - 60) * 0.1;
     }
 
     totalQualityPoints += qualityPoints * credits;

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        title: 'CSCI410 Week 4 Project',
+        title: '12230300 Ali Hussein Project 1',
         debugShowCheckedModeBanner: false,
         home: Home()
     );
