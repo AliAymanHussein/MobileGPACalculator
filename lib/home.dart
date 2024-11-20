@@ -23,10 +23,8 @@ class _HomeState extends State<Home> {
     setState(() {
       if(addCourse()){
           _text = "GPA: ${calculateGPA(_initialGPA, _initialCredits, _courses)}";
-          print("Executed");
       }else{
         _text = "Invalid Parameters, please check your entered values and try again.";
-        print("notExecuted");
       }
     });
   }
@@ -95,6 +93,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           title: const Text('GPA Calculator'),
           centerTitle: true,
+          backgroundColor: Colors.grey,
         ),
         body: Center(
           child: Column(
@@ -142,7 +141,7 @@ class _HomeState extends State<Home> {
 
             ],
           ),
-        )
+        ),
     );
   }
 }
@@ -155,7 +154,7 @@ class MyTextField extends StatelessWidget {
   Function(String) f;
   String hint;
   MyTextField({required this.hint, required this.f, super.key,});
-  @override
+  @override3
   Widget build(BuildContext context) {
     return SizedBox(width: 300.0, height: 50.0,
       child: TextField(
