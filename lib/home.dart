@@ -1,3 +1,5 @@
+//Ali Hussein - 12230300
+
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -114,7 +116,7 @@ class _HomeState extends State<Home> {
 
 
               Expanded(                                     // <---- I used this expanded container to include the viewlist in it so i can make a scroll list
-                child: ListView.builder(                    // <---- I searched about this and the card to use it because i need to display the courses for the user in a list
+                child: ListView.builder(
                   itemCount: _courses.length,
                   itemBuilder: (context, index) {
                     int courseId = _courses.keys.elementAt(index);
@@ -154,7 +156,7 @@ class MyTextField extends StatelessWidget {
   Function(String) f;
   String hint;
   MyTextField({required this.hint, required this.f, super.key,});
-  @override3
+  @override
   Widget build(BuildContext context) {
     return SizedBox(width: 300.0, height: 50.0,
       child: TextField(
